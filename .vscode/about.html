@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — DayBreak General Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211c15;
+    --paper:#fbf6ec;
+    --paper-raised:#ffffff;
+    --navy:#1f2b46;
+    --navy-deep:#141c30;
+    --gold:#f0a93d;
+    --gold-deep:#c9832a;
+    --red:#c1442c;
+    --line: rgba(33,28,21,0.14);
+    --shadow: 0 1px 2px rgba(20,28,48,0.06), 0 10px 24px -14px rgba(20,28,48,0.28);
+    --shadow-lift: 0 4px 10px rgba(20,28,48,0.08), 0 22px 40px -20px rgba(20,28,48,0.38);
+    --radius-soft: 22px;
+    color-scheme: light;
+  }
+  html[data-theme="dark"]{
+    --ink:#f1ecdf;
+    --paper:#15130f;
+    --paper-raised:#211d17;
+    --navy:#2a3a5e;
+    --navy-deep:#0d1220;
+    --gold-deep:#e2a13c;
+    --red:#d65e42;
+    --line: rgba(241,236,223,0.14);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 24px -14px rgba(0,0,0,0.55);
+    --shadow-lift: 0 4px 10px rgba(0,0,0,0.35), 0 22px 40px -20px rgba(0,0,0,0.65);
+    color-scheme: dark;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    transition:background-color 0.35s ease, color 0.35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    .reveal{ opacity:1 !important; transform:none !important; }
+  }
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  .reveal-group.is-visible .reveal-item{ opacity:1; transform:translateY(0); }
+  .reveal-item{
+    opacity:0; transform:translateY(18px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-item:nth-child(1){ transition-delay:0.02s; }
+  .reveal-item:nth-child(2){ transition-delay:0.1s; }
+  .reveal-item:nth-child(3){ transition-delay:0.18s; }
+  .reveal-item:nth-child(4){ transition-delay:0.26s; }
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.98;
+    margin:0;
+  }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  .topbar{ position:sticky; top:0; z-index:40; background:var(--paper); border-bottom:1px solid var(--line); transition:background-color 0.35s ease; }
+  .topbar-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:1080px; margin:0 auto; gap:12px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Anton', sans-serif; font-size:1.25rem; text-decoration:none; color:var(--ink); }
+  .brand-mark{ width:30px; height:30px; border-radius:50%; background:linear-gradient(180deg, var(--gold) 45%, var(--red) 45%); flex:none; }
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-weight:600; font-size:0.9rem;
+    text-decoration:none;
+  }
+  .top-actions{ display:flex; align-items:center; gap:14px; }
+  .theme-toggle{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:50%;
+    border:1.5px solid var(--line); background:transparent; color:var(--ink);
+    cursor:pointer; transition:transform 0.25s ease, border-color 0.2s ease;
+  }
+  .theme-toggle:hover{ border-color:var(--gold-deep); transform:rotate(20deg); }
+  .theme-toggle svg{ width:18px; height:18px; }
+  .theme-toggle .icon-sun{ display:block; }
+  .theme-toggle .icon-moon{ display:none; }
+  html[data-theme="dark"] .theme-toggle .icon-sun{ display:none; }
+  html[data-theme="dark"] .theme-toggle .icon-moon{ display:block; }
+
+  .pageintro{ padding:56px 0 40px; border-bottom:1px solid var(--line); }
+  .pageintro .kicker{ color:var(--red); font-weight:700; font-size:0.85rem; margin-bottom:14px; }
+  .pageintro h1{ font-size:clamp(2.6rem, 8vw, 4rem); }
+  .pageintro p{ margin-top:18px; font-size:1.1rem; max-width:56ch; color:rgba(33,28,21,0.72); }
+
+  section{ padding:56px 0; }
+  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+  .story-copy p{ font-size:1.02rem; color:rgba(33,28,21,0.75); max-width:52ch; margin:0 0 16px; }
+  .story-art{
+    background:var(--navy); border-radius:var(--radius-soft);
+    aspect-ratio:1/1; position:relative; overflow:hidden;
+    box-shadow:var(--shadow-lift);
+  }
+  .story-art svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+  .stats-row{ display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .stat{ flex:1 1 160px; padding:26px 20px; border-right:1px solid var(--line); }
+  .stat:last-child{ border-right:none; }
+  .stat .num{ font-family:'Anton', sans-serif; font-size:2.4rem; color:var(--navy); display:block; }
+  .stat .lbl{ font-size:0.88rem; color:rgba(33,28,21,0.6); margin-top:4px; }
+
+  .values-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
+  .value-card{ border-radius:18px; padding:24px; box-shadow:var(--shadow); transition:transform 0.25s ease, box-shadow 0.25s ease; }
+  .value-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lift); }
+  .value-card.navy{ background:var(--navy); color:var(--paper); }
+  .value-card.gold{ background:var(--gold); color:var(--navy-deep); }
+  .value-card.red{ background:var(--red); color:var(--paper); }
+  .value-card h3{ font-size:1.2rem; margin-bottom:8px; }
+  .value-card p{ font-size:0.92rem; opacity:0.9; margin:0; }
+
+  .contact-cta{
+    background:var(--navy-deep); color:var(--paper);
+    border-radius:var(--radius-soft);
+    padding:40px clamp(20px,5vw,48px);
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .contact-cta h2{ font-size:1.9rem; }
+  .contact-cta p{ margin-top:8px; color:rgba(251,246,236,0.7); }
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:999px; font-weight:600; text-decoration:none; font-size:1rem; border:2px solid transparent; }
+  .btn-primary{ background:var(--gold); color:var(--navy-deep); }
+  .btn-primary:hover{ background:#ffbf5c; }
+  .btn-outline{ border-color:rgba(251,246,236,0.4); color:var(--paper); }
+  .btn-outline:hover{ border-color:var(--paper); }
+
+  footer{ background:var(--navy-deep); color:rgba(251,246,236,0.5); padding:24px 0; font-size:0.82rem; }
+  footer .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:760px){
+    .story-grid{ grid-template-columns:1fr; }
+    .values-grid{ grid-template-columns:1fr; }
+    .stat{ flex:1 1 45%; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="daybreak-store.html"><span class="brand-mark"></span>DayBreak</a>
+      <div class="top-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8L6 18M18 6l1.8-1.8"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+        <a class="back-link" href="daybreak-store.html">← Back to store</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="pageintro">
+    <div class="wrap reveal">
+      <div class="kicker">About us</div>
+      <h1>A general store built around the daily errand</h1>
+      <p>DayBreak sits on the Eastern By-Pass, right next to Custom's Office — a stop people make on the way to somewhere else, and leave with everything they came in for.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="story-grid reveal">
+      <div class="story-copy">
+        <h2 style="font-size:1.9rem; margin-bottom:16px;">Why the shelves stay simple</h2>
+        <p>The store isn't trying to be everything. It's built around the small list of things a household actually runs out of — rice, oil, seasoning, airtime, a bar of soap — kept in one place instead of spread across a long aisle.</p>
+        <p>That's also why mobile money and airtime top-ups sit right alongside the groceries: most visits are quick, and DayBreak is set up so one stop covers more than one errand.</p>
+        <p>Local shoppers have rated the store 4.3 out of 5, with reviews calling it "fantastic" and describing it as a dependable regular stop on their route.</p>
+      </div>
+      <div class="story-art">
+        <svg viewBox="0 0 300 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="300" fill="#1f2b46"/>
+          <rect x="0" y="220" width="300" height="80" fill="#141c30"/>
+          <rect x="24" y="150" width="252" height="70" rx="6" fill="#c1442c"/>
+          <rect x="36" y="160" width="45" height="50" fill="#f0a93d"/>
+          <rect x="90" y="160" width="45" height="50" fill="#fbf6ec"/>
+          <rect x="144" y="160" width="45" height="50" fill="#f0a93d"/>
+          <rect x="198" y="160" width="45" height="50" fill="#fbf6ec"/>
+          <circle cx="150" cy="95" r="36" fill="#f0a93d"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-top:0;">
+    <div class="stats-row reveal-group reveal">
+      <div class="stat reveal-item"><span class="num">4.3</span><span class="lbl">Average rating, 3 reviews</span></div>
+      <div class="stat reveal-item"><span class="num">6</span><span class="lbl">Product categories stocked</span></div>
+      <div class="stat reveal-item"><span class="num">7am</span><span class="lbl">Typical opening time</span></div>
+      <div class="stat reveal-item"><span class="num">2</span><span class="lbl">Extra services — airtime &amp; momo</span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="reveal" style="font-size:1.9rem; margin-bottom:20px;">What DayBreak stands for</h2>
+    <div class="values-grid reveal-group">
+      <div class="value-card navy reveal-item">
+        <h3>Close by</h3>
+        <p>Positioned for the errand you make on the way somewhere else, not a special trip.</p>
+      </div>
+      <div class="value-card gold reveal-item">
+        <h3>Kept simple</h3>
+        <p>A short, well-chosen set of categories instead of aisles to search through.</p>
+      </div>
+      <div class="value-card red reveal-item">
+        <h3>More than one errand</h3>
+        <p>Groceries and household basics alongside airtime and mobile money, in one stop.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="contact-cta reveal">
+      <div>
+        <h2>Visit or call ahead</h2>
+        <p>Adjacent Custom's Office, Eastern By-Pass, Kumasi</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn btn-primary" href="tel:0244547744">Call · 024 454 7744</a>
+        <a class="btn btn-outline" href="daybreak-store.html#location">See location</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>DayBreak General Store, Kumasi</span>
+      <span><a href="daybreak-store.html">← Back to the main site</a></span>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  var themeBtn = document.getElementById('themeToggle');
+  themeBtn.addEventListener('click', function(){
+    var root = document.documentElement;
+    var isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  });
+
+  if('IntersectionObserver' in window){
+    var revealEls = document.querySelectorAll('.reveal, .reveal-group');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal, .reveal-group').forEach(function(el){
+      el.classList.add('is-visible');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
